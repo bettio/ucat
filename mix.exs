@@ -25,7 +25,8 @@ defmodule Ucat.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:exatomvm, github: "AtomVM/exatomvm", runtime: false}
+      {:exatomvm, github: "AtomVM/exatomvm", runtime: false},
+      {:avm_scene, github: "AtomVM/avm_scene"}
     ]
   end
 end
