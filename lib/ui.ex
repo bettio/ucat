@@ -1,5 +1,4 @@
 defmodule Ucat.UI do
-  @fg_color 0x000000
   @bg_color 0xFFFFFF
 
   @anim %{
@@ -36,8 +35,8 @@ defmodule Ucat.UI do
     :erlang.send_after(5000, self(), {:show_cat, 0})
 
     rendered = [
-      {:text, 10, 20, :default16px, @fg_color, @bg_color, "Hello."},
-      {:rect, 0, 0, width, height, @bg_color}
+      {:text, 10, 20, :default16px, 0x000000, 0x808080, "Hello."},
+      {:rect, 0, 0, width, height, 0x808080}
     ]
 
     {:noreply, state, [{:push, rendered}]}
@@ -64,8 +63,17 @@ defmodule Ucat.UI do
     {:ok, cat} = get_cat_image("cat.rgba")
 
     rendered = [
-      {:scaled_cropped_image, 0, height - 256, 256, 256, @bg_color, source_x, source_y, 8, 8, [],
-       cat},
+      cond do
+        height < 60 ->
+          {:scaled_cropped_image, 0, 0, 32, 32, @bg_color, source_x, source_y, 2, 2, [], cat}
+
+        height < 200 ->
+          {:scaled_cropped_image, 0, 0, 64, 64, @bg_color, source_x, source_y, 2, 2, [], cat}
+
+        true ->
+          {:scaled_cropped_image, 0, height - 256 - 50, 256, 256, @bg_color, source_x, source_y,
+           8, 8, [], cat}
+      end,
       {:rect, 0, 0, width, height, @bg_color}
     ]
 
