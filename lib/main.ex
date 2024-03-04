@@ -3,7 +3,7 @@ defmodule Main do
     width: 128,
     height: 64,
     compatible: "solomon-systech,ssd1306",
-    reset: 16,
+    reset: 10,
     invert: true
   ]
 
@@ -64,8 +64,8 @@ defmodule Main do
       else
         if @i2c_display_driver? do
           i2c_opts = [
-            sda: 4,
-            scl: 15,
+            sda: 2,
+            scl: 3,
             clock_speed_hz: 1_000_000,
             peripheral: "i2c0"
           ]
